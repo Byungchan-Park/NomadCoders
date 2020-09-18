@@ -13,7 +13,7 @@ function Home({ toDos, addToDo }) {
     addToDo(text)
     setText("")
   }
-  localStorage.setItem("toDos", JSON.stringify(toDos))
+  toDos && localStorage.setItem("toDos", JSON.stringify(toDos))
   // Every time Home component is rerendered as state of Redux store changes, toDos data is saved in the localStorage.
   return (
     <>
@@ -36,7 +36,7 @@ function Home({ toDos, addToDo }) {
 // first argument : current state of Redux store
 // second argument : Component's own props
 function mapStateToProps(state) {
-  return { toDos: state.toDos }
+  return { toDos: state }
 }
 
 function mapDispatchToProps(dispatch) {
