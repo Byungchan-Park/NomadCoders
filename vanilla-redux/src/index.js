@@ -1,29 +1,72 @@
-// ***** Counter with Redux *****
+// ***** TodoList with Redux *****
 import { createStore } from "redux"
 
-const plus = document.getElementById("plus")
-const minus = document.getElementById("minus")
-const number = document.querySelector("span")
+const form = document.querySelector("form")
+const input = document.querySelector("input")
+const ul = document.querySelector("ul")
 
-const ADD = "ADD"
-const MINUS = "MINUS"
+// Action Type
+const ADD_TO_DO = "ADD_TO_DO"
+const DELETE_TO_DO = "DELETE_TO_DO"
 
-const countModifier = (count = 0, action) => {
+const reducer = (state = [], action) => {
   switch (action.type) {
-    case ADD:
-      return count + 1
-    case MINUS:
-      return count - 1
+    case ADD_TO_DO:
+      const newToDoObj = { id: Date.now(), text: action.text }
+      return [...state, newToDoObj]
+    case DELETE_TO_DO:
+      const cleaned = state.filter((toDo) => toDo.id !== action.id)
+      return cleaned
     default:
-      return count
+      return state
   }
 }
 
-const countStore = createStore(countModifier)
+const store = createStore(reducer)
 
-countStore.subscribe(() => {
-  number.innerText = countStore.getState()
-})
+// Action Creators
+const addToDo = (text) => {
+  return { type: ADD_TO_DO, text }
+}
 
-plus.addEventListener("click", () => countStore.dispatch({ type: ADD }))
-minus.addEventListener("click", () => countStore.dispatch({ type: MINUS }))
+const deleteToDo = (id) => {
+  return { type: DELETE_TO_DO, id }
+}
+
+// Dispatch
+const dispatchAddToDo = (text) => {
+  store.dispatch(addToDo(text))
+}
+
+const dispatchDeleteToDo = (e) => {
+  const id = parseInt(e.target.parentNode.id)
+  // raw data is string. need to change to number.
+  store.dispatch(deleteToDo(id))
+}
+
+const paintToDos = () => {
+  const toDos = store.getState()
+  ul.innerHTML = ""
+  toDos.forEach((toDo) => {
+    const li = document.createElement("li")
+    const btn = document.createElement("button")
+    btn.innerText = "DEL"
+    btn.addEventListener("click", dispatchDeleteToDo)
+    li.id = toDo.id
+    li.innerText = toDo.text
+    li.append(btn)
+    ul.appendChild(li)
+  })
+}
+
+// Every time Redux state changes, paintToDos is invoked.
+store.subscribe(paintToDos)
+
+const onSubmit = (e) => {
+  e.preventDefault()
+  const toDo = input.value
+  input.value = ""
+  dispatchAddToDo(toDo)
+}
+
+form.addEventListener("submit", onSubmit)
