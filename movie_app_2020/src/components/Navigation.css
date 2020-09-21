@@ -1,0 +1,26 @@
+a {
+  text-decoration: none;
+  color: inherit;
+}
+.navigation {
+  width: 100vw;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 60px;
+}
+.navigation h1 > a {
+  color: red;
+  font-size: 40px;
+}
+.navigation a {
+  display: inline-block;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 20px;
+  font-size: 20px;
+}
+.navigation a + a {
+  margin-left: 20px;
+}

@@ -1,0 +1,13 @@
+.about {
+  height: 100vh;
+  text-align: center;
+}
+
+.about h1 {
+  color: #fff;
+  font-size: 35px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 200px;
+}

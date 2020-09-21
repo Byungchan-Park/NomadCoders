@@ -1,0 +1,30 @@
+.movieDetail {
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 50px;
+  color: #fff;
+  display: flex;
+}
+.movieDetail > img {
+  max-width: 300px;
+  width: 100%;
+  margin-right: 50px;
+}
+.movieDetail__title {
+  font-size: 30px;
+}
+.movieDetail__genres {
+  display: flex;
+  padding: 0;
+}
+.movieDetail__genres li {
+  list-style: none;
+}
+.movieDetail__genres > * {
+  margin-right: 20px;
+}
+.movieDetail__summary strong {
+  display: block;
+  margin-bottom: 30px;
+  font-size: 20px;
+}
